@@ -1,10 +1,18 @@
-const inquirer = require('inquirer');
-const fs = require('fs').promises; // Use the promise-based version of the fs module
+const fs = require('fs').promises;
 const path = require('path');
 const { Triangle, Circle, Square } = require('./lib/shapes');
 
+// Importing the inquirer module dynamically
+async function loadDependencies() {
+  const inquirer = await import(('inquirer')).default;
+  return inquirer;
+}
+
 async function generateLogo() {
   try {
+    // Dynamically import the inquirer module
+    const inquirerModule = await import('inquirer');
+    const inquirer = inquirerModule.default;
     const userInput = await inquirer.prompt([
       {
         type: 'input',
